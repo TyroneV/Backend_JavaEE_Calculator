@@ -7,4 +7,4 @@ How to use:
  Run the server first (this repository)  
  Then run the [calculator](https://github.com/TyroneV/Calculator/tree/backend_calculator) from the backend_calculator branch.
 
-  For testing write : http://localhost:8080/test/Calculator2?input=8times85
+  For testing write in your addressbar: http://localhost:8080/test/Calculator2?input=8times85
