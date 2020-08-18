@@ -3,6 +3,6 @@
 
 [link to the main calculator itself](https://github.com/TyroneV/Calculator/tree/backend_calculator) 
 
-How to use:
- Run the server first (this repository)
+How to use:\n
+ Run the server first (this repository)\n
  Then run the [calculator](https://github.com/TyroneV/Calculator/tree/backend_calculator) from the backend_calculator branch.
