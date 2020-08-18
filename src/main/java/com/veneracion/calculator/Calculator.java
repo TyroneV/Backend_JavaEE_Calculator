@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 
 public class Calculator extends HttpServlet {
 
+    // Not working. Just for testing
+
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
