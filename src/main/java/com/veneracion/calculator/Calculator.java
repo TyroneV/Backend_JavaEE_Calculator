@@ -1,40 +1,71 @@
 package com.veneracion.calculator;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.*;
+import javax.servlet.http.*;
 
+// Extend HttpServlet class
 public class Calculator extends HttpServlet {
-
-    // Not working. Just for testing
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Set response content type
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
-        String title = "Using GET Method to Read Form Data";
-        String docType =
-                "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
-
-        out.println(docType +
-                "<html>\n" +
-                "<head><title>" + title + "</title></head>\n" +
-                "<body bgcolor = \"#f0f0f0\">\n" +
-                "<h1 align = \"center\">" + title + "</h1>\n" +
-                "<ul>\n" +
-                "  <li><b>First Name</b>: "
-                + request.getParameter("first_name") + "\n" +
-                "  <li><b>Last Name</b>: "
-                + request.getParameter("last_name") + "\n" +
-                "</ul>\n" +
-                "</body>" +
-                "</html>"
+        out.println(
+                "<html>"+(readInput(request.getParameter("input")))+"</html>"
         );
+    }
+    double compute(double n1 , double n2, String operator){
+        double result = 0d;
+        switch (operator){
+            case "plus":
+                result = n1 + n2;
+                break;
+            case "minus":
+                result = n1 - n2;
+                break;
+            case "times":
+                result = n1 * n2;
+                break;
+            case "div":
+                result = n1 / n2;
+                break;
+            default:
+                return result;
+        }
+        return result;
+
+    }
+    public String readInput(String syntax){
+        String[] strNumbers = syntax.split("(?<!^)\\D+");
+        String[] ops = syntax.split("\\d+|[.]|^-");
+        List<String> strOperators = new ArrayList<>();
+
+        boolean initialize = false;
+        try {
+            for (String s: ops){
+                if(s.equals("times")||s.equals("div")||s.equals("minus")||s.equals("plus")){
+                    strOperators.add(s);
+                }
+            }
+            double holder = 0d;
+            for (String strNumber : strNumbers) {
+                if (!initialize) {
+                    holder = Double.parseDouble(strNumber);
+                    initialize = true;
+                } else if (strOperators.size() > 0) {
+                    holder = compute(holder, Double.parseDouble(strNumber), strOperators.get(0));
+                    strOperators.remove(0);
+                }
+            };
+            syntax = Double.toString(holder);
+        } catch (Exception e){
+            syntax = "Syntax Error";
+        }
+        return syntax;
     }
 }
