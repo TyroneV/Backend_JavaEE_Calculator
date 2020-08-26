@@ -41,10 +41,10 @@ public class Calculator extends HttpServlet {
 
     }
     public String readInput(String syntax){
-        String[] strNumbers = syntax.split("(?<!^)\\D+");
-        String[] ops = syntax.split("\\d+|[.]|^-");
-        List<String> strOperators = new ArrayList<>();
 
+        String[] strNumbers = syntax.split("(?!^)-|[^0-9.-]+");
+        String[] ops = syntax.split("(\\d+|[.]|^-)+");
+        List<String> strOperators = new ArrayList<>();
         boolean initialize = false;
         try {
             for (String s: ops){
