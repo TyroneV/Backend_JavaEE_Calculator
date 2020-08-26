@@ -16,7 +16,7 @@ public class Calculator extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         out.println(
-                "<html>"+(readInput(request.getParameter("input")))+"</html>"
+                (readInput(request.getParameter("input")))
         );
     }
     double compute(double n1 , double n2, String operator){
